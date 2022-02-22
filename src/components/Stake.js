@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress, NumberInput, NumberInputField, Stack, Button, Slider, SliderTrack, Box, SliderFilledTrack, SliderThumb, Text, Center, Spacer, useToast } from '@chakra-ui/react'
+import { CircularProgress, NumberInput, NumberInputField, Stack, Button, Slider, SliderTrack, Box, SliderFilledTrack, SliderThumb, Text, Center, Spacer, useToast, InputGroup, InputRightAddon } from '@chakra-ui/react'
 
 import { useStaking } from '../hooks';
 
@@ -21,7 +21,7 @@ export function Stake(props) {
 
 	const handleStake = async () => {
 		setLoading(true);
-		
+
 		const ok = await stake(amount);
 
 		setLoading(false);
@@ -66,9 +66,12 @@ export function Stake(props) {
 
 	return (
 		<Stack spacing={5}>
-			<NumberInput min={0} max={parseInt(balance)} value={amount} onChange={handleAmountChange}>
-				<NumberInputField />
-			</NumberInput>
+			<InputGroup>
+				<NumberInput width="full" min={0} max={parseInt(balance)} value={amount} onChange={handleAmountChange}>
+					<NumberInputField />
+				</NumberInput>
+				<InputRightAddon children='GO' />
+			</InputGroup>
 			<Center>
 				<Text>{percent}%</Text>
 			</Center>
