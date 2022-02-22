@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useColorMode, Stack, Flex, Heading, Box } from '@chakra-ui/react';
+import { useColorMode, Stack, Flex, Heading, Box, Spacer } from '@chakra-ui/react';
 
 import { Header, Footer, MyStake, AllStake } from './components';
 
@@ -19,9 +19,11 @@ export default function App() {
 				<Heading as='h1' size='xl'>
 					Staking
 				</Heading>
+				<Spacer />
 				<Heading as='h3' size='l' fontWeight="normal">
 					Stake GO token to earn
 				</Heading>
+				<Spacer />
 				<Heading as='h5' size='s' fontWeight="normal">
 					To get rewards, minimum of 50,000 is required
 				</Heading>
