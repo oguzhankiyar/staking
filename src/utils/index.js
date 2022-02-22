@@ -10,7 +10,7 @@ const calculateRates = (rate) => {
         daily: fn(rate, 1),
         weekly: fn(rate, 7),
         monthly: fn(rate, 30),
-        yearly: fn(rate, 365)
+        yearly: rate
     };
 };
 
