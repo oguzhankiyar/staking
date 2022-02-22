@@ -12,11 +12,31 @@ export function Unstake(props) {
 
 	const handleSliderChange = (value) => {
 		setPercent(value);
-		setAmount(parseInt(staked) * value / 100);
+		handleAmountChange(parseInt(staked) * value / 100);
 	};
 
 	const handleAmountChange = (value) => {
-		setAmount(value);
+		if (value.length === 0) {
+			value = 0;
+		}
+
+		value = parseFloat(value);
+
+		if (value !== 0 && !value) {
+			return;
+		}
+
+		const max = staked;
+
+		if (max <= 0 || value <= 0) {
+			setAmount(0);
+			setPercent(0);
+		} else {
+			value = Math.min(value, max);
+
+			setAmount(value);
+			setPercent(Math.floor(value * 100 / max));
+		}
 	};
 
 	const handleUnstake = async () => {
@@ -76,14 +96,14 @@ export function Unstake(props) {
 			<Center>
 				<Text>{percent}%</Text>
 			</Center>
-			<Slider defaultValue={percent} min={0} max={100} step={10} onChange={handleSliderChange}>
+			<Slider value={percent} min={0} max={100} step={1} onChange={handleSliderChange}>
 				<SliderTrack bg='red.100'>
 					<Box position='relative' right={10} />
 					<SliderFilledTrack bg='tomato' />
 				</SliderTrack>
 				<SliderThumb boxSize={5} backgroundColor="tomato" />
 			</Slider>
-			<Button colorScheme="purple" onClick={handleUnstake}>
+			<Button colorScheme="purple" onClick={handleUnstake} disabled={amount <= 0}>
 				UNSTAKE
 			</Button>
 			<Spacer />
