@@ -84,7 +84,7 @@ export function MyStake() {
 					</Stat>
 					<Stack direction="row" align="center">
 						<Image src="/img/calculator.svg" onClick={openCalculator} cursor="pointer" />
-						<Modal isOpen={isCalculatorOpen} onClose={closeCalculator} size="xl" isCentered>
+						<Modal isOpen={isCalculatorOpen} onClose={closeCalculator} size="2xl" isCentered>
 							<ModalOverlay />
 							<ModalContent>
 								<ModalHeader>Calculator</ModalHeader>
