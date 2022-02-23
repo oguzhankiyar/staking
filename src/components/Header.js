@@ -14,6 +14,8 @@ export function Header() {
 				<Image
 					src="https://explorer.gochain.io/assets/images/logo_fullcolor.svg"
 					width={125}
+					onClick={() => window.location.href = 'https://gochain.io'}
+					cursor="pointer"
 				/>
 			</Box>
 			<Stack spacing={2} direction='row' align='center'>
