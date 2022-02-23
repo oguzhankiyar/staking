@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, useMemo } from 'react'
 import Web3 from 'web3';
 import BigNumber from 'bignumber.js';
 
 import { contractAddress, chainConfig } from '../constants/config';
 import ABI from '../constants/abi';
 
-export function useStaking() {
+export const StakingContext = createContext(null);
+
+export const StakingProvider = ({ children }) => {
 	const [isConnected, setIsConnected] = useState(false);
 	const [account, setAccount] = useState(null);
 	const [balance, setBalance] = useState(0);
@@ -16,8 +18,6 @@ export function useStaking() {
 	const web3 = new Web3(Web3.givenProvider);
 	const contract = new web3.eth.Contract(ABI, contractAddress);
 	const decimal = BigNumber('1000000000000000000');
-
-	web3.currentProvider.setMaxListeners(300);
 
 	const check = async () => {
 		const { ethereum } = window;
@@ -150,6 +150,10 @@ export function useStaking() {
 
 	useEffect(() => {
 		connect();
+
+		return () => {
+			disconnect();
+		};
 	}, []);
 
 	useEffect(() => {
@@ -158,17 +162,32 @@ export function useStaking() {
 		updateSupply();
 	}, [account]);
 
-	return {
-		check,
-		connect,
-		disconnect,
-		stake,
-		unstake,
-		isConnected,
-		account,
-		balance,
-		staked,
-		supply,
-		rate
-	};
+	const values = useMemo(
+		() => {
+			return {
+				check,
+				connect,
+				disconnect,
+				stake,
+				unstake,
+				isConnected,
+				account,
+				balance,
+				staked,
+				supply,
+				rate
+			};
+		}, [isConnected, account, balance, staked, supply, rate]);
+
+	return <StakingContext.Provider value={values}>{children}</StakingContext.Provider>
+}
+
+export function useStaking() {
+	const context = React.useContext(StakingContext);
+
+	if (context === undefined) {
+		throw new Error('useStaking hook must be used with a StakingProvider component');
+	}
+
+	return context;
 }
