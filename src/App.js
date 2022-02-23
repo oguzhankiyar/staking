@@ -1,17 +1,9 @@
-import React, { useEffect } from 'react';
-import { useColorMode, Stack, Flex, Heading, Box, Spacer, Button } from '@chakra-ui/react';
+import React from 'react';
+import { Stack, Flex, Heading, Box, Spacer, Button } from '@chakra-ui/react';
 
 import { Header, MyStake, AllStake } from './components';
 
-import './App.css';
-
 export default function App() {
-	const { setColorMode } = useColorMode();
-
-	useEffect(() => {
-		setColorMode('light');
-	}, []);
-
 	return (
 		<Stack spacing={{ base: 50, md: 100 }} direction='column' width={[900, 400, 900, 900]} margin="auto" paddingY={5}>
 			<Stack paddingX={5}>
