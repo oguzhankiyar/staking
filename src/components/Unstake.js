@@ -88,7 +88,7 @@ export function Unstake(props) {
 	return (
 		<Stack spacing={5}>
 			<InputGroup>
-				<NumberInput width="full" min={0} max={parseInt(staked)} value={amount} onChange={handleAmountChange}>
+				<NumberInput width="full" value={amount} onChange={handleAmountChange}>
 					<NumberInputField />
 				</NumberInput>
 				<InputRightAddon children='GO' />
@@ -96,7 +96,7 @@ export function Unstake(props) {
 			<Center>
 				<Text>{percent}%</Text>
 			</Center>
-			<Slider value={percent} min={0} max={100} step={1} onChange={handleSliderChange}>
+			<Slider value={percent} min={0} max={100} step={1} onChange={handleSliderChange} focusThumbOnChange={false}>
 				<SliderTrack bg='red.100'>
 					<Box position='relative' right={10} />
 					<SliderFilledTrack bg='tomato' />
