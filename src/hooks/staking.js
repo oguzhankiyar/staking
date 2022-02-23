@@ -135,7 +135,7 @@ export const StakingProvider = ({ children }) => {
 	};
 
 	const updateSupply = async () => {
-		if (!contractAddress) {
+		if (!contractAddress || !web3.givenProvider) {
 			setSupply(0);
 			setRate(0);
 			return;
