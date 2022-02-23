@@ -12,11 +12,31 @@ export function Calculator() {
 	const rewards = calculateRewards(rate, amount);
 
 	useEffect(() => {
-		setAmount(staked);
+		if (staked > 0) {
+			handleAmountChange(staked);
+		}
 	}, [staked]);
 
 	const handleAmountChange = (value) => {
-		setAmount(value);
+		if (value.length === 0) {
+			value = 0;
+		}
+
+		value = parseFloat(value);
+
+		if (value !== 0 && !value) {
+			return;
+		}
+
+		const max = 1e9;
+
+		if (value <= 0) {
+			setAmount(0);
+		} else {
+			value = Math.min(value, max);
+
+			setAmount(value);
+		}
 	}
 
 	return (
@@ -24,7 +44,7 @@ export function Calculator() {
 			<Stack spacing={5}>
 				<Box alignSelf="center">
 					<InputGroup size='sm'>
-						<NumberInput min={0} value={amount} onChange={handleAmountChange}>
+						<NumberInput value={amount} onChange={handleAmountChange}>
 							<NumberInputField />
 						</NumberInput>
 						<InputRightAddon children='GO' />
