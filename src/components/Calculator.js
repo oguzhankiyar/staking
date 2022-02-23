@@ -14,6 +14,8 @@ export function Calculator() {
 	useEffect(() => {
 		if (staked > 0) {
 			handleAmountChange(staked);
+		} else {
+			handleAmountChange(1e5);
 		}
 	}, [staked]);
 
